@@ -4,9 +4,6 @@ import {TextField, Button} from '@material-ui/core';
 
 import axios from "axios";
 class SubmitForm extends Component{
-  onSubmitForm = () =>{
-    console.log("test");
-  }
   constructor(props){
     super(props);
 
@@ -24,13 +21,16 @@ class SubmitForm extends Component{
     let email = this.state.email;
     let url = this.state.url;
     let pass = this.state.pass;
+    const { GATSBY_PASS } = process.env;
+
     if(pass != GATSBY_PASS || url == "" || email == ""){
       return false;
-    }else{S
+    }else{
       return true;
     }
   }
   submitButton = () => {
+    const {GATSBY_MONDAY} = process.env
     if(this.validPass() === false){
     }else{
       let email = this.state.email;
@@ -77,7 +77,6 @@ class SubmitForm extends Component{
         <TextField onChange={this.handleChange('email')} required id="email" label="Email" variant="outlined" />
         <TextField onChange={this.handleChange('url')} required id="link" label="Sheets Link" variant="outlined" />
         <TextField onChange={this.handleChange('pass')} required id="pass" label="Password" type="Password" variant="outlined" />
-        <p>{this.state.email + " " + this.state.url}</p>
         <Button onClick={this.submitButton} variant="outlined">Bless</Button>
       </p>
     )
