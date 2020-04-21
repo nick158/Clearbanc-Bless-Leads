@@ -10,12 +10,14 @@ class SubmitForm extends Component{
     this.state ={
       email: '',
       pass: '',
-      url: ''
+      url: '',
+      submitted: true
     }
   }
 
   handleChange = (prop) => (event) => {
     this.setState({ [prop]: event.target.value });
+    this.state.submitted = false;
   };
   validPass = () => {
     let email = this.state.email;
@@ -51,7 +53,7 @@ class SubmitForm extends Component{
         variables: {
           boardId: 428943437,
           groupId: "topics",
-          itemName: "jsTest (ignore)",
+          itemName: "Self Prospecting",
           columnValues: JSON.stringify({ "owner": email, "gsheetslink": url  })
         }
       }
@@ -63,6 +65,7 @@ class SubmitForm extends Component{
         }
       ).then((result) => {
         console.log(result.data);
+        this.state.submitted = true;
       }).catch((err) => {
         console.error(err);
       })
@@ -77,7 +80,11 @@ class SubmitForm extends Component{
         <TextField onChange={this.handleChange('email')} required id="email" label="Email" variant="outlined" />
         <TextField onChange={this.handleChange('url')} required id="link" label="Sheets Link" variant="outlined" />
         <TextField onChange={this.handleChange('pass')} required id="pass" label="Password" type="Password" variant="outlined" />
-        <Button onClick={this.submitButton} variant="outlined">Bless</Button>
+        <br />
+        <Button onClick={this.submitButton} style={{"margin-top": "10px"}} variant="outlined">Bless</Button>
+        <br/>
+        {!this.state.submitted && <p>Not Submitted Yet 😔</p>}
+        {this.state.submitted && <p>Submitted 🎉🙏🏻🎉</p>}
       </p>
     )
   }
