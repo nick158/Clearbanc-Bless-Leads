@@ -11,7 +11,7 @@ class SubmitForm extends Component{
       email: '',
       pass: '',
       url: '',
-      submitted: true
+      submitted: false
     }
   }
 
@@ -54,9 +54,10 @@ class SubmitForm extends Component{
           boardId: 428943437,
           groupId: "topics",
           itemName: "Self Prospecting",
-          columnValues: JSON.stringify({ "owner": email, "gsheetslink": url  })
+          columnValues: JSON.stringify({ "owner": email, "gsheets_link": url  })
         }
       }
+      console.log('query')
       let token = GATSBY_MONDAY;
 
       axios.post(
@@ -65,7 +66,7 @@ class SubmitForm extends Component{
         }
       ).then((result) => {
         console.log(result.data);
-        this.state.submitted = true;
+        this.setState({submitted: true});
       }).catch((err) => {
         console.error(err);
       })
